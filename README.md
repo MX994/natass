@@ -1,0 +1,7 @@
+# 564-Final
+
+---
+
+Assume the camera is running at 10.0.1.2, your pc is running at 10.0.1.4, and the C2 is running at 10.0.1.3. If these addresses are not accurate the beachead and implant at natas/client/webserver will need to be modified to reflect that. natas/client/webserver contains the files that get served to the camera through an http server (e.g. `python3 -m http.server --bind=10.0.1.4 80`). FOSCAM_3.41.2a is the beachead and FOSCAM_3.41.2a.so is the implant. 
+
+Assuming all the addresses have been correctly adapted you should be able to start a webserver in natas/client/webserver (e.g. `python3 -m http.server --bind=10.0.1.4 80`). Then you need to start the C2 server with `python3 Server.py` from the natass/server directory. Finally, start an FTP server on the same server that is running `Server.py` with a write enabled user `golf` with password `golf`. Once that is done, run `python3 Installer.py` from the natass/server directory to install the implant. The implant is now running and will reach out for it's first command in the next 5 minutes. You can use the command line spawned by `Server.py` to enter commands into the queue to be run and they will show up. The result of the commands will show up as files in the FTP server. Each file lists the IP it came from as well as the commands it ran.

